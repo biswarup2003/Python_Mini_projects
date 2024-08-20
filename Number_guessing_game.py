@@ -7,4 +7,4 @@ while(guess!=random_number):
         print("Try again! Too low...")
     elif(guess>random_number):
         print("Try again! Too high...")
-print("Congrats! you guessed the number {guess}")
+print(f"Congrats! you guessed the number {guess}")
