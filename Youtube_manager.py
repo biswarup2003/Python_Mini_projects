@@ -8,6 +8,7 @@ def update_video(videos):
 def delete_videos(videos):
     pass
 
+#main
 while True:
     print("\n Youtube Manager || choose an option : ")
     print("1. List all youtube videos")
