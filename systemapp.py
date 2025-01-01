@@ -1,4 +1,4 @@
-#py to exe command : pyinstaller --onefile your_script.py
+#py to exe command : pyinstaller --onefile --noconsole script.py
 
 from tkinter import *
 from tkinter import messagebox
@@ -36,14 +36,18 @@ def display():
         case('Zoom'):
             os.startfile(r"\\192.168.5.20\hw\Biswarup_Neogi")  
             flag = True
-        case('Notepad'):
-            os.system('notepad.exe')
 
         case('ICR(Latest)'):
             os.startfile('https://iimi1.capturedata.com:7553/review/')
+            flag = True
             
         case('Dynamic2'):
             os.startfile('https://d-96671daae3.awsapps.com/start/#/?tab=applications')
+            flag = True
+        
+        case('Learning Tool'):
+            os.startfile(r"\\192.168.5.20\Software\HW_Software\IIMTraining.application")
+            flag = True
 
         case _:
              messagebox.showerror("Input Error", "Select a Valid Option")
@@ -80,7 +84,7 @@ timeshow()
 # Dropdown
 fr2 = Frame(st)
 fr2.pack(pady=10)
-options = ['WPS Office','Microsoft Access','Zoom','Notepad','ICR(Latest)','Dynamic2']
+options = ['WPS Office','Microsoft Access','Zoom','Notepad','ICR(Latest)','Dynamic2','Learning Tool']
 select = ttk.Combobox(fr2, values=options)
 select.pack()
 
