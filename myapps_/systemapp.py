@@ -23,6 +23,8 @@ deptm = {
 }
 # ----------------------------------------------------------------------------------------------------------------
 
+
+
 # Functions
 def update_options(event):
     dept = selectdept_combobox.get()
@@ -57,6 +59,7 @@ def display():
         threading.Thread(target=open_file, args=(selected_option, paths[selected_option]), daemon=True).start()
     else:
         messagebox.showerror("Input Error", "Please select a valid option.")
+
 
 # Main frame start
 fr1 = Frame(st)
