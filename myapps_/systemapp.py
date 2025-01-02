@@ -49,7 +49,7 @@ def display():
         'Microsoft Access': r"\\192.168.5.20\Software\HW_Software\AccessRuntime_X64.exe",
         'Zoom': r"",
         'ICR(Latest)': 'https://iimi1.capturedata.com:7553/review/',
-        'Dynamic2': 'https://d-96671daae3.awsapps.com/start/#/?tab=applications',
+        'Dynamic2': os.system(f"start msedge {'https://d-96671daae3.awsapps.com/start/#/?tab=applications'}"),
         'Learning Tool': r"\\192.168.5.20\Software\HW_Software\IIMTraining.application"
     }
 
