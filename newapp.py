@@ -1,14 +1,14 @@
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-import datetime
+import time
 import getpass
 import subprocess
 import os
 
 st= Tk()
 st.title("Welcome")
-st.geometry("400x300")
+st.geometry("500x400")
 
 #fuctions
 def username():
@@ -16,8 +16,10 @@ def username():
     return un
 
 def timeshow():
-    current_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-    showtime.config(text=current_time)
+    current_date = time.strftime("%d-%B-%Y")
+    current_time = time.strftime("%H:%M:%S")
+    text = f"{current_date}\n\n{current_time}"
+    showtime.config(text=text)
     showtime.after(1000, timeshow)
 
 
@@ -47,7 +49,7 @@ def display():
             os.startfile(r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Firefox.lnk")
             flag= True
         case('D2'):
-            url = 'https://i2.capturedata.com:44382/Home/SelectProject'
+            url = 'https://d-96671daae3.awsapps.com/start/#/?tab=applications'
             os.system(f"start msedge {url}")
 
         case _:
@@ -71,10 +73,10 @@ fr1.pack(pady=10)
 # youwant = Entry(fr1)
 # youwant.grid(row=1, column=1, padx=10, pady=5)
 
-time_label = Label(fr1, text=f"Hello {username()} ", font=("arial", 15))
+time_label = Label(fr1, text=f"Hello {username()} ", font=("arial", 20))
 time_label.pack(pady=10)
 
-showtime = Label(fr1, font=("Helvetica", 25), fg="black")
+showtime = Label(fr1, font=("Helvetica", 15), fg="black")
 showtime.pack(pady=10)
 
 # Call timeshow to start updating the time
@@ -86,7 +88,7 @@ timeshow()
 fr2 = Frame(st)
 fr2.pack(pady=10)
 options = ['Import Tool','Missing Image Processing Excel File','My Local server folder','My local folder','FireFox','RemotePC','Zoom','D2']
-select = ttk.Combobox(fr2, values=options)
+select = ttk.Combobox(fr2, values=options, width=20,font=("Helvetica", 14))
 select.pack()
 
 submit = Button(fr2, text="Submit", font=("arial", 15), command=display)
