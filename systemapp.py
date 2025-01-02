@@ -1,99 +1,98 @@
-#py to exe command : pyinstaller --onefile --noconsole script.py
-
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-import datetime
+import time
 import getpass
-import subprocess
+import threading
 import os
 
-st= Tk()
+# Create the main window
+st = Tk()
 st.title("Welcome")
-st.geometry("400x300")
+st.geometry("500x400")
 
-#fuctions
+# --------------------------------------------------------------------------------------------------------------
+# Application for each department
+deptm = {
+    "HW": ['WPS Office', 'Microsoft Access', 'Zoom', 'Notepad', 'ICR(Latest)', 'Dynamic2', 'Learning Tool'],
+    "MAP": ['WPS office', 'BravaReader'],
+    "MEDICAL" : [],
+
+}
+# ----------------------------------------------------------------------------------------------------------------
+
+# Functions
+def update_options(event):
+    dept = selectdept_combobox.get()
+    option_combobox['values'] = deptm[dept]
+
 def username():
-    un = getpass.getuser()
-    return un
+    return getpass.getuser()
 
 def timeshow():
-    current_time = datetime.datetime.now().strftime("%I:%M:%S %p")
-    showtime.config(text=current_time)
+    current_date = time.strftime("%d-%B-%Y")
+    current_time = time.strftime("%H:%M:%S")
+    text = f"{current_date}\n{current_time}"
+    showtime.config(text=text)
     showtime.after(1000, timeshow)
 
+def open_file(selected_option, path):
+    try:
+        if path.startswith('http'):
+            # For URLs, open with a browser or default application
+            os.startfile(path)
+        else:
+            os.startfile(path)  # Open executable file or application
+        sts.config(text=f"Opening {selected_option}...")
+    except Exception as e:
+        messagebox.showerror("Error", f"Could not open {selected_option}")
 
 def display():
-    input = select.get()
-    flag = ""
-    match(input):
-        case('WPS Office'):
-            os.startfile(r"\\192.168.5.20\Software\Cmn_Apps_for_all\WPS_NEW.exe")
-            flag = True
-        case('Microsoft Access'):
-            os.startfile(r"\\192.168.5.20\Software\HW_Software\AccessRuntime_X64.exe")
-            flag = True
-        case('Zoom'):
-            os.startfile(r"\\192.168.5.20\hw\Biswarup_Neogi")  
-            flag = True
+    selected_option = option_combobox.get()
+    paths = {
+        'WPS Office': r"\\192.168.5.20\Software\Cmn_Apps_for_all\WPS_NEW.exe",
+        'Microsoft Access': r"\\192.168.5.20\Software\HW_Software\AccessRuntime_X64.exe",
+        'Zoom': r"",
+        'ICR(Latest)': 'https://iimi1.capturedata.com:7553/review/',
+        'Dynamic2': 'https://d-96671daae3.awsapps.com/start/#/?tab=applications',
+        'Learning Tool': r"\\192.168.5.20\Software\HW_Software\IIMTraining.application"
+    }
 
-        case('ICR(Latest)'):
-            os.startfile('https://iimi1.capturedata.com:7553/review/')
-            flag = True
-            
-        case('Dynamic2'):
-            os.startfile('https://d-96671daae3.awsapps.com/start/#/?tab=applications')
-            flag = True
-        
-        case('Learning Tool'):
-            os.startfile(r"\\192.168.5.20\Software\HW_Software\IIMTraining.application")
-            flag = True
+    if selected_option in paths:
+        threading.Thread(target=open_file, args=(selected_option, paths[selected_option]), daemon=True).start()
+    else:
+        messagebox.showerror("Input Error", "Please select a valid option.")
 
-        case _:
-             messagebox.showerror("Input Error", "Select a Valid Option")
-
-    if flag== True:
-        sts.config(text= f" Opening {input}...")
-
-
-#main frame
+# Main frame start
 fr1 = Frame(st)
 fr1.pack(pady=10)
 
-# name = Label(fr1, text="First Name:", font=("arial", 15))
-# name.grid(row=0, column=0, padx=10, pady=5)
-# youwant = Label(fr1, text="Last Name:", font=("arial", 15))
-# youwant.grid(row=1, column=0, padx=10, pady=5)
-
-# name = Entry(fr1)
-# name.grid(row=0, column=1, padx=10, pady=5)
-# youwant = Entry(fr1)
-# youwant.grid(row=1, column=1, padx=10, pady=5)
-
-time_label = Label(fr1, text=f"Hello {username()} ", font=("arial", 15))
+time_label = Label(fr1, text=f"Hello {username()} ", font=("arial", 20))
 time_label.pack(pady=10)
 
-showtime = Label(fr1, font=("Helvetica", 25), fg="black")
+showtime = Label(fr1, font=("Helvetica", 15), fg="black")
 showtime.pack(pady=10)
-
-# Call timeshow to start updating the time
 timeshow()
-
 
 
 # Dropdown
 fr2 = Frame(st)
 fr2.pack(pady=10)
-options = ['WPS Office','Microsoft Access','Zoom','Notepad','ICR(Latest)','Dynamic2','Learning Tool']
-select = ttk.Combobox(fr2, values=options)
-select.pack()
 
+selectdept_combobox = ttk.Combobox(fr2,width=20,font=("Helvetica", 14) ,values=list(deptm.keys()))
+selectdept_combobox.pack()
+selectdept_combobox.bind("<<ComboboxSelected>>", update_options)
+
+
+option_combobox = ttk.Combobox(fr2, width=20, font=("Helvetica", 14))
+option_combobox.pack(pady=10)
+
+
+#Submit
 submit = Button(fr2, text="Submit", font=("arial", 15), command=display)
 submit.pack(pady=10)
 
 sts = Label(fr2, text="Choose an Option", font=("arial", 15)) 
 sts.pack(pady=10)
-
-
 
 st.mainloop()
