@@ -16,8 +16,8 @@ st.geometry("500x400")
 # --------------------------------------------------------------------------------------------------------------
 # Application for each department
 deptm = {
-    "HW": ['WPS Office', 'Microsoft Access', 'Zoom', 'Notepad', 'ICR(Latest)', 'Dynamic2', 'Learning Tool'],
-    "MAP": ['WPS office', 'BravaReader'],
+    "HW": ['WPS Office', 'Microsoft Access', 'Zoom','ICR(Latest)', 'Dynamic2', 'Learning Tool'],
+    "MAP": ['WPS Office', 'BravaReader', 'Zoom'],
     "MEDICAL" : [],
 
 }
@@ -49,7 +49,7 @@ def display():
     paths = {
         'WPS Office': r"\\192.168.5.20\Software\Cmn_Apps_for_all\WPS_NEW.exe",
         'Microsoft Access': r"\\192.168.5.20\Software\HW_Software\AccessRuntime_X64.exe",
-        'Zoom': r"",
+        'Zoom': r"https://zoom.us/download?os=win",
         'ICR(Latest)': 'https://iimi1.capturedata.com:7553/review/',
         'Dynamic2': os.system(f"start msedge {'https://d-96671daae3.awsapps.com/start/#/?tab=applications'}"),
         'Learning Tool': r"\\192.168.5.20\Software\HW_Software\IIMTraining.application"
