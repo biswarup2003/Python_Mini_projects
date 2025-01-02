@@ -46,6 +46,9 @@ def display():
         case('FireFox'):
             os.startfile(r"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Firefox.lnk")
             flag= True
+        case('D2'):
+            url = 'https://i2.capturedata.com:44382/Home/SelectProject'
+            os.system(f"start msedge {url}")
 
         case _:
              messagebox.showerror("Input Error", "Select a Valid Option")
@@ -82,7 +85,7 @@ timeshow()
 # Dropdown
 fr2 = Frame(st)
 fr2.pack(pady=10)
-options = ['Import Tool','Missing Image Processing Excel File','My Local server folder','My local folder','FireFox','RemotePC','Zoom']
+options = ['Import Tool','Missing Image Processing Excel File','My Local server folder','My local folder','FireFox','RemotePC','Zoom','D2']
 select = ttk.Combobox(fr2, values=options)
 select.pack()
 
