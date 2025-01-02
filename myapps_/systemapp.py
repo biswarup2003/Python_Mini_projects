@@ -51,11 +51,13 @@ def display():
         'Microsoft Access': r"\\192.168.5.20\Software\HW_Software\AccessRuntime_X64.exe",
         'Zoom': r"https://zoom.us/download?os=win",
         'ICR(Latest)': 'https://iimi1.capturedata.com:7553/review/',
-        'Dynamic2': os.system(f"start msedge {'https://d-96671daae3.awsapps.com/start/#/?tab=applications'}"),
         'Learning Tool': r"\\192.168.5.20\Software\HW_Software\IIMTraining.application"
     }
 
-    if selected_option in paths:
+    if selected_option == 'Dynamic2':
+        # Only run this if "Dynamic2" is selected
+        threading.Thread(target=open_file, args=("Dynamic2", "https://d-96671daae3.awsapps.com/start/#/?tab=applications"), daemon=True).start()
+    elif selected_option in paths:
         threading.Thread(target=open_file, args=(selected_option, paths[selected_option]), daemon=True).start()
     else:
         messagebox.showerror("Input Error", "Please select a valid option.")
